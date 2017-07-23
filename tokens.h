@@ -1,0 +1,10 @@
+#define TK_Op_add 0
+#define TK_Op_sub 1
+#define TK_Op_mul 2
+#define TK_Op_div 3
+#define TK_left_par 4
+#define TK_rigth_par 5
+#define TK_NUMERO 6
+#define TK_EOL 7
+#define TK_Error 8
+#define TK_EOF 9
