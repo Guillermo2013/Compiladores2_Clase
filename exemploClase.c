@@ -798,21 +798,19 @@ YY_RULE_SETUP
 #line 15 "exemploClase.l"
 { return TK_EOL;}
 	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-#line 16 "exemploClase.l"
-{ return TK_EOF;}
-	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 17 "exemploClase.l"
+#line 16 "exemploClase.l"
 { return TK_Error;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 19 "exemploClase.l"
+#line 18 "exemploClase.l"
 ECHO;
 	YY_BREAK
-#line 816 "exemploClase.c"
+#line 812 "exemploClase.c"
+case YY_STATE_EOF(INITIAL):
+	yyterminate();
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1811,7 +1809,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 19 "exemploClase.l"
+#line 18 "exemploClase.l"
 
 
 	

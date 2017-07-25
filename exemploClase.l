@@ -13,7 +13,6 @@
 ")"	{ return TK_rigth_par;}
 [0-9]+	{ return TK_NUMERO;}
 "\n"  	{ return TK_EOL;}
-<<EOF>> { return TK_EOF;}
 .	{ return TK_Error;}
 
 %%
