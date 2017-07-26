@@ -475,7 +475,8 @@ char *yytext;
 #line 3 "exemploClase.l"
 #include <stdio.h>
 #include "tokens.h"
-#line 479 "exemploClase.c"
+
+#line 480 "exemploClase.c"
 
 #define INITIAL 0
 
@@ -693,9 +694,9 @@ YY_DECL
 		}
 
 	{
-#line 6 "exemploClase.l"
+#line 7 "exemploClase.l"
 
-#line 699 "exemploClase.c"
+#line 700 "exemploClase.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -754,61 +755,61 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 7 "exemploClase.l"
+#line 8 "exemploClase.l"
 { /*nada */} 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 8 "exemploClase.l"
+#line 9 "exemploClase.l"
 { return TK_Op_add;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 9 "exemploClase.l"
+#line 10 "exemploClase.l"
 { return TK_Op_sub;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 10 "exemploClase.l"
+#line 11 "exemploClase.l"
 { return TK_Op_mul;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "exemploClase.l"
+#line 12 "exemploClase.l"
 { return TK_Op_div;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 12 "exemploClase.l"
+#line 13 "exemploClase.l"
 { return TK_left_par;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 13 "exemploClase.l"
+#line 14 "exemploClase.l"
 { return TK_rigth_par;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 14 "exemploClase.l"
-{ return TK_NUMERO;}
+#line 15 "exemploClase.l"
+{ yylval = atoi(yytext); return TK_NUMERO;}
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 15 "exemploClase.l"
+#line 16 "exemploClase.l"
 { return TK_EOL;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 16 "exemploClase.l"
+#line 17 "exemploClase.l"
 { return TK_Error;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 18 "exemploClase.l"
+#line 19 "exemploClase.l"
 ECHO;
 	YY_BREAK
-#line 812 "exemploClase.c"
+#line 813 "exemploClase.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1809,7 +1810,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 18 "exemploClase.l"
+#line 19 "exemploClase.l"
 
 
 	

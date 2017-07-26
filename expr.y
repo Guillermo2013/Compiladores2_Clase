@@ -12,24 +12,23 @@ printf(msg);
 
 %%
 
-start : expr TK_EOL start
-      | expr 
-      |
-     
+start : start TK_EOL expr { printf("%d\n",$3);}
+      | expr { printf("%d\n",$1);}
+      |     
 ;
 	 
 
-expr :  expr TK_Op_add term
-      | expr TK_Op_sub term
-      | term
+expr :  expr TK_Op_add term { $$ = $1 + $3;}
+      | expr TK_Op_sub term { $$ = $1 - $3;}
+      | term { $$ = $1;}
 ;
 
-term :  term TK_Op_mul factor
-      | term TK_Op_div factor
-      | factor
+term :  term TK_Op_mul factor { $$ = $1 * $3;}
+      | term TK_Op_div factor { $$ = $1 / $3;}
+      | factor { $$ = $1;}
 ;
 
-factor:  TK_NUMERO
-       | TK_left_par expr TK_rigth_par
+factor:  TK_NUMERO { $$ = $1;}
+       | TK_left_par expr TK_rigth_par { $$ = $2;}
 ;
 
