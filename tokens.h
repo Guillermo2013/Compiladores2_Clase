@@ -55,7 +55,10 @@ extern int yydebug;
     TK_EOL = 265,
     TK_Error = 266,
     TK_EOF = 267,
-    TK_ERROR = 268
+    TK_ERROR = 268,
+    TK_Asignacion = 269,
+    TK_Print = 270,
+    TK_Dolar = 271
   };
 #endif
 
