@@ -17,7 +17,7 @@ expr_parser.c : expr.y
 	gcc -c -o $@ $<
 
 run : $(TARGET)
-	./$(TARGET) < exemplo.txt
+	./$(TARGET) exemplo.txt 
 clean:
 	rm -f exemploClase.c
 	rm -f $(TARGET)

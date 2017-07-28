@@ -1,11 +1,9 @@
-//COMENTARIO 1
 $0 = 10
 $7 = 20
-/* comentario
-*comentario
-
 $1 = ($0 + $7) * $0
-//COMENTARIO 2
+
+#include "exemplo2.txt"
+
 print $0
 print $7
 print $1
