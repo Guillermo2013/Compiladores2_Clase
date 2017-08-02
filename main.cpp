@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include "tokens.h"
-int expr();
-int yylex();
+
+ int expr();
+ int yylex();
 extern FILE *yyin;
-int push_file(char *filename);
+ int push_file(char *filename);
+
 int main (int argc , char * argv[]){
  
  if(argc != 2){

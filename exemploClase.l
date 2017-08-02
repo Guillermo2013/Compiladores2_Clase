@@ -2,10 +2,11 @@
 %option yylineno
 %x commentMultLine
 %x include
+%x includeM
 %{
 #include <stdio.h>
-#include "tokens.h"
-
+#include "tokens.h" 
+#include "ash.h"
 typedef struct include_stack{
  struct include_stack *prev;
  FILE *f;
@@ -23,6 +24,7 @@ int push_file(char *filename);
 [ \t]   { /*nada */} 
 "//".*\n { return TK_EOL;}
 ^"#"[ \t]*"include"[ \t]*\" { BEGIN(include);} 
+^"#"[ \t]*"include"[ \t]*< { BEGIN(includeM);} 
 "/*" 	{ BEGIN(commentMultLine);}
 "+"	{ return TK_Op_add;}
 "-"	{ return TK_Op_sub;}
@@ -30,24 +32,59 @@ int push_file(char *filename);
 "/"	{ return TK_Op_div;}
 "("	{ return TK_left_par;}
 ")"	{ return TK_rigth_par;}
-[0-9]+	{ yylval = atoi(yytext); return TK_NUMERO;}
-"$"	{ return TK_Dolar;}
+[0-9]+	{ yylval.int_t = atoi(yytext); return TK_NUMERO;}
+\$[0-7] { yylval.int_t = yytext[1]-'0'; return TK_Val;}
 "="  	{ return TK_Asignacion;}
 "print" { return TK_Print;}	
 "\n"  	{ return TK_EOL;}
+
 <INITIAL><<EOF>> { if(pop_file() != 0 ) yyterminate(); }
 .	{ return TK_Error;}
 
 <include>[^\"\n]+ { 
 			{
 				int c;
-				while((c = input()) != 0 && c != '\n');
+				int cerrado = 0;
+				while((c = yyinput()) != '\n'){						
+					if(c != 34 && c != 32){
+					  fprintf(stderr,"line %d Error :include no more expression \n",yylineno);
+					 yyterminate();		
+					}
+					cerrado = 1;				
+				}
+				if(cerrado == 0){ 
+					 fprintf(stderr,"line %d Error :include without end \n",yylineno);
+					 yyterminate();
+				}
 				yylineno++;
 				if(push_file(yytext) != 0)
 					yyterminate();	
 			}
 			BEGIN(INITIAL);
 		  }
+<includeM>[^>\n]+ { 
+			{
+				int c;
+				int cerrado = 0;
+				while((c = yyinput()) != '\n'){						
+									
+					if(c != 62 && c != 32){
+					 fprintf(stderr,"line %d Error :include no more expression \n",yylineno);
+					 yyterminate();		
+					}		
+					cerrado = 1;		
+				}
+				if(cerrado == 0){ 
+					 fprintf(stderr,"line %d Error :include without end \n",yylineno);
+					 yyterminate();
+				}
+				yylineno++;
+				if(push_file(yytext) != 0)
+					yyterminate();	
+			}
+			BEGIN(INITIAL);
+		  }
+
 
 <commentMultLine>"*/" { BEGIN(INITIAL);}
 <commentMultLine>.|\n { /*nada */ }
@@ -60,7 +97,7 @@ int push_file (char *filename ){
 		return 1;
 	}
 	
-	include_stack_t *is = malloc(sizeof(include_stack_t));
+	include_stack_t *is = (include_stack_t*)malloc(sizeof(include_stack_t));
 	if(is == NULL){
 		fprintf(stderr,"out memory");
 		return 1;
