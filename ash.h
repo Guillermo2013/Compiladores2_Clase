@@ -38,6 +38,36 @@ class DivExpr:public BinaryExpr{
  	DivExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
 	int eval();
 };
+class IgualExpr:public BinaryExpr{
+ public:
+ 	IgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
+class DistintoExpr:public BinaryExpr{
+ public:
+ 	DistintoExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
+class MayorExpr:public BinaryExpr{
+ public:
+ 	MayorExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
+class MenorExpr:public BinaryExpr{
+ public:
+ 	MenorExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
+class MayorIgualExpr:public BinaryExpr{
+ public:
+ 	MayorIgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
+class MenorIgualExpr:public BinaryExpr{
+ public:
+ 	MenorIgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
+	int eval();
+};
 class NumberExpr:public Expr{
  public:
 	NumberExpr(int value){
@@ -78,6 +108,19 @@ class PrintStatement : public Statement{
 		Expr *expr;
 		PrintStatement(Expr *expr){
 			this->expr = expr;
+		}
+
+		void exec();
+};
+class If_Statement : public Statement{
+	public: 
+		Expr *expr;
+		Statement *ifStatement;
+		Statement *elseStatement;
+		If_Statement(Expr *expr,Statement *ifStatement,Statement *elseStatement){
+			this->expr = expr;
+			this->ifStatement = ifStatement;
+			this->elseStatement = elseStatement;
 		}
 
 		void exec();

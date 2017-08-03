@@ -37,6 +37,16 @@ int push_file(char *filename);
 "="  	{ return TK_Asignacion;}
 "print" { return TK_Print;}	
 "\n"  	{ return TK_EOL;}
+"=="    { return TK_Igual;}
+"!="    { return TK_Distinto;}
+"<"     { return TK_Menor;}
+">"     { return TK_Mayor;}
+"<="    { return TK_MenorIgual;}
+">="    { return TK_MayorIgual;}
+"if"    { return TK_IF;}
+"else"  { return TK_Else;}
+"{"     { return TK_left_llave;}
+"}"     { return TK_rigth_llave;}
 
 <INITIAL><<EOF>> { if(pop_file() != 0 ) yyterminate(); }
 .	{ return TK_Error;}

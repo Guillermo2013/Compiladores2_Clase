@@ -66,7 +66,17 @@ extern int yydebug;
     TK_NUMERO = 270,
     TK_Print = 271,
     TK_Separador = 272,
-    TK_Val = 273
+    TK_Val = 273,
+    TK_Igual = 274,
+    TK_Distinto = 275,
+    TK_Menor = 276,
+    TK_Mayor = 277,
+    TK_MenorIgual = 278,
+    TK_MayorIgual = 279,
+    TK_IF = 280,
+    TK_Else = 281,
+    TK_left_llave = 282,
+    TK_rigth_llave = 283
   };
 #endif
 
@@ -81,7 +91,7 @@ union YYSTYPE
   Expr *expr_t; 
   int int_t;
 
-#line 85 "tokens.h" /* yacc.c:1909  */
+#line 95 "tokens.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -1,7 +1,11 @@
 $0 = 10
-$7 = 20
-$1 = ($0 + $7) * $0
-#include <exemplo2.txt>     
-print $7
+$7 = 20 
+#include "exemplo2.txt"  
+
+if($0 == 10)
+ $1 = ($0 + $7) * 5
+else
+  print $7
+
 print $1
 print ($1 + 10)
