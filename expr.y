@@ -23,16 +23,17 @@ printf("Line %d : %s  file: %s \n",yylineno,msg,yyfilename);
   Statement *statement_t;
   Expr *expr_t; 
   int int_t;
+  char *char_t;
 }
 
 %token TK_Op_add TK_Op_sub TK_Op_mul TK_Op_div TK_left_par TK_rigth_par TK_EOL TK_Error TK_EOF TK_ERROR TK_Asignacion TK_Dolar 
 %token TK_NUMERO TK_Print TK_Separador TK_Val TK_Igual TK_Distinto TK_Menor TK_Mayor TK_MenorIgual TK_MayorIgual TK_IF TK_Else 
-%token TK_left_llave TK_rigth_llave
+%token TK_left_llave TK_rigth_llave TK_VarNombre
 
 %type <int_t> TK_NUMERO TK_Val
 %type <statement_t> statement assign_statement print_statement if_statement statementList Opt_Else BlockStatementOrStatement
 %type <expr_t> expr term factor add
-
+%type <char_t> TK_VarNombre
 %%
 
 inputs : opt_eols statementList opt_eols {  $2->exec();}
@@ -68,6 +69,7 @@ print_statement : TK_Print expr { $$ = new PrintStatement($2);}
 ;
 
 assign_statement : TK_Val TK_Asignacion expr{  $$  = new AssignStatement($1,$3); } 
+		 | TK_VarNombre TK_Asignacion expr{  $$  = new AssignStatement($1,$3);} 
 ;
 
 expr: add TK_Igual add {$$ = new IgualExpr($1,$3);}
@@ -88,8 +90,10 @@ term :  term TK_Op_mul factor { $$ = new MultExpr($1,$3);}
       | factor { $$ = $1;}
 ;
 	
-factor:  TK_NUMERO { $$ = new NumberExpr($1);}
+factor: TK_VarNombre {  $$ = new VarNombreExpr($1);}
+       |  TK_NUMERO { $$ = new NumberExpr($1);}
        | TK_left_par expr TK_rigth_par { $$ = $2;}
        | TK_Val {  $$ = new VarExpr($1);}
+       
 ;
 

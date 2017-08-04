@@ -1,3 +1,3 @@
 #include "exemplo3.txt"  
-print $0
+print $0 
 print $7

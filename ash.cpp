@@ -1,69 +1,63 @@
 #include "ash.h"
-#include <iostream>
-using namespace std;
+
+#include <stdio.h>
+#include <cstring>
+
+#include <stdlib.h>
 int vars[8];
 
-int AddExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 + v2;	
+map< char *, int > variablesNombres;
+
+typedef pair<char *, int> elemento;
+
+#define IMPLEMENT_BINARY_EXPR_EVAL(name,opr) \
+	int name##Expr::eval(){ \
+	int v1 = expr1->eval(); \
+	int v2 = expr2->eval(); \
+	return v1 opr v2; \
 }
 
-int SubExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 - v2;	
-}
+	
+IMPLEMENT_BINARY_EXPR_EVAL(Add,+);
+IMPLEMENT_BINARY_EXPR_EVAL(Sub,-);
+IMPLEMENT_BINARY_EXPR_EVAL(Mult,*);
+IMPLEMENT_BINARY_EXPR_EVAL(Div,/);
+IMPLEMENT_BINARY_EXPR_EVAL(Igual,==);
+IMPLEMENT_BINARY_EXPR_EVAL(Distinto,!=);
+IMPLEMENT_BINARY_EXPR_EVAL(Mayor,>);
+IMPLEMENT_BINARY_EXPR_EVAL(Menor,<);
+IMPLEMENT_BINARY_EXPR_EVAL(MayorIgual,>=);
+IMPLEMENT_BINARY_EXPR_EVAL(MenorIgual,<=);
 
-int MultExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 * v2;	
-}
 
-int DivExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 / v2;	
-}
-int IgualExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 == v2;	
-}
-int DistintoExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 != v2;	
-}
-int MayorExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 > v2;	
-}
-int MenorExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 < v2;	
-}
-int MayorIgualExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 >= v2;	
-}
-int MenorIgualExpr::eval(){
-  int v1 = expr1->eval();
-  int v2 = expr2->eval();
-  return v1 <= v2;	
-}
 
+
+int VarNombreExpr::eval(){
+map<char *, int>::iterator p = variablesNombres.begin();
+  while (p != variablesNombres.end() )
+  {
+    if(strcmp(p->first,index) == 0)
+      return p->second;
+   
+    p ++;
+    
+  }
+ cout<<"Error : Variable not exit "<<endl;
+ exit (1);
+  
+}
 int VarExpr::eval(){
   return vars[index];	
 }
-
 void AssignStatement:: exec(){
   int v1 = expr->eval();
-  vars[index] = v1;	
+  if(index != -1)
+   vars[index] = v1;
+   else if(index == -1){
+    variablesNombres.insert(elemento(nombre,v1));
+    
+ }
+  
 }
 
 void PrintStatement:: exec(){
@@ -72,6 +66,7 @@ void PrintStatement:: exec(){
 }
 void If_Statement::exec(){
  int v1 = expr->eval();
+
  if(v1 == 1)
    ifStatement->exec();
  else

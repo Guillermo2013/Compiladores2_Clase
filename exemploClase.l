@@ -35,7 +35,10 @@ int push_file(char *filename);
 [0-9]+	{ yylval.int_t = atoi(yytext); return TK_NUMERO;}
 \$[0-7] { yylval.int_t = yytext[1]-'0'; return TK_Val;}
 "="  	{ return TK_Asignacion;}
-"print" { return TK_Print;}	
+"if"    { return TK_IF;}
+"else"  { return TK_Else;}
+"print" { return TK_Print;}
+[a-zA-Z_][a-zA-Z0-9_]* {  yylval.char_t = strdup(yytext); return TK_VarNombre; }
 "\n"  	{ return TK_EOL;}
 "=="    { return TK_Igual;}
 "!="    { return TK_Distinto;}
@@ -43,12 +46,12 @@ int push_file(char *filename);
 ">"     { return TK_Mayor;}
 "<="    { return TK_MenorIgual;}
 ">="    { return TK_MayorIgual;}
-"if"    { return TK_IF;}
-"else"  { return TK_Else;}
+
 "{"     { return TK_left_llave;}
 "}"     { return TK_rigth_llave;}
 
 <INITIAL><<EOF>> { if(pop_file() != 0 ) yyterminate(); }
+
 .	{ return TK_Error;}
 
 <include>[^\"\n]+ { 

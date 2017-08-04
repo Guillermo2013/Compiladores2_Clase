@@ -1,7 +1,12 @@
 #ifndef _ASI_H
 #define _ASI_H
 #include <list>
+#include <map>
+#include <iostream>
+#include <stdio.h>	
 using namespace std;
+
+
 
 class Expr{
 public:
@@ -18,56 +23,24 @@ class BinaryExpr:public Expr{
 	Expr *expr1,*expr2;
  	
 };
-class AddExpr:public BinaryExpr{
- public:
- 	AddExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
- 	int eval();
-};
-class SubExpr:public BinaryExpr{
- public:
- 	SubExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class MultExpr:public BinaryExpr{
- public:
- 	MultExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class DivExpr:public BinaryExpr{
- public:
- 	DivExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class IgualExpr:public BinaryExpr{
- public:
- 	IgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class DistintoExpr:public BinaryExpr{
- public:
- 	DistintoExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class MayorExpr:public BinaryExpr{
- public:
- 	MayorExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class MenorExpr:public BinaryExpr{
- public:
- 	MenorExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class MayorIgualExpr:public BinaryExpr{
- public:
- 	MayorIgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
-class MenorIgualExpr:public BinaryExpr{
- public:
- 	MenorIgualExpr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){}
-	int eval();
-};
+#define DEFINE_BINARY_EXPR(name) \
+	class name##Expr : public BinaryExpr { \
+	public : \
+		name##Expr(Expr *expr1,Expr *expr2):BinaryExpr(expr1,expr2){} \
+		int eval(); \
+}
+
+DEFINE_BINARY_EXPR(Add);
+DEFINE_BINARY_EXPR(Sub);
+DEFINE_BINARY_EXPR(Mult);
+DEFINE_BINARY_EXPR(Div);
+DEFINE_BINARY_EXPR(Igual);
+DEFINE_BINARY_EXPR(Distinto);
+DEFINE_BINARY_EXPR(Mayor);
+DEFINE_BINARY_EXPR(Menor);
+DEFINE_BINARY_EXPR(MayorIgual);
+DEFINE_BINARY_EXPR(MenorIgual);
+
 class NumberExpr:public Expr{
  public:
 	NumberExpr(int value){
@@ -85,6 +58,15 @@ class VarExpr:public Expr{
 	}	
 	
 };
+class VarNombreExpr:public Expr{
+ public:
+	char *index;
+	int eval();
+	VarNombreExpr(char * index){
+		this->index = index;	
+	}	
+	
+};
 class Statement{
  public: 
 	virtual void exec() = 0;
@@ -94,11 +76,17 @@ class Statement{
 
 class AssignStatement : public Statement{
 	public:
-		int index;
-		Expr * expr;
+		int index = -1;
+                char * nombre;
+		Expr *expr;
 		AssignStatement(int index, Expr * expr){
-			this->index= index;
+			this->index = index;
 			this->expr = expr;
+		}
+		AssignStatement(char * nombre, Expr * expr){
+			this->nombre = nombre;
+			this->expr = expr;
+                      
 		}
 		void exec();
 		

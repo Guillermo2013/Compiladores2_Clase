@@ -76,7 +76,8 @@ extern int yydebug;
     TK_IF = 280,
     TK_Else = 281,
     TK_left_llave = 282,
-    TK_rigth_llave = 283
+    TK_rigth_llave = 283,
+    TK_VarNombre = 284
   };
 #endif
 
@@ -90,8 +91,9 @@ union YYSTYPE
   Statement *statement_t;
   Expr *expr_t; 
   int int_t;
+  char *char_t;
 
-#line 95 "tokens.h" /* yacc.c:1909  */
+#line 97 "tokens.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
