@@ -1,8 +1,8 @@
 /* A Bison parser, made by GNU Bison 3.0.4.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* Skeleton interface for Bison GLR parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 2002-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -40,11 +40,11 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "expr.y" /* yacc.c:1909  */
+#line 1 "expr.y" /* glr.c:197  */
 
  #include "ash.h"
 
-#line 48 "tokens.h" /* yacc.c:1909  */
+#line 48 "tokens.h" /* glr.c:197  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -77,7 +77,8 @@ extern int yydebug;
     TK_Else = 281,
     TK_left_llave = 282,
     TK_rigth_llave = 283,
-    TK_VarNombre = 284
+    TK_VarNombre = 284,
+    TK_While = 285
   };
 #endif
 
@@ -86,14 +87,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 22 "expr.y" /* yacc.c:1909  */
+#line 26 "expr.y" /* glr.c:197  */
 
   Statement *statement_t;
   Expr *expr_t; 
   int int_t;
   char *char_t;
 
-#line 97 "tokens.h" /* yacc.c:1909  */
+#line 98 "tokens.h" /* glr.c:197  */
 };
 
 typedef union YYSTYPE YYSTYPE;

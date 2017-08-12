@@ -3,6 +3,7 @@
 %x commentMultLine
 %x include
 %x includeM
+
 %{
 #include <stdio.h>
 #include "tokens.h" 
@@ -19,12 +20,12 @@ include_stack_t *inc_stack = NULL;
 char *yyfilename;
 int pop_file();
 int push_file(char *filename);
-%}
+%}z<sd 
 %%
 [ \t]   { /*nada */} 
-"//".*\n { return TK_EOL;}
-^"#"[ \t]*"include"[ \t]*\" { BEGIN(include);} 
-^"#"[ \t]*"include"[ \t]*< { BEGIN(includeM);} 
+"//".*\n {return TK_EOL;}
+"#"[ \t]*"include"[ \t]*\" { BEGIN(include);} 
+"#"[ \t]*"include"[ \t]*< { BEGIN(includeM);} 
 "/*" 	{ BEGIN(commentMultLine);}
 "+"	{ return TK_Op_add;}
 "-"	{ return TK_Op_sub;}
@@ -32,23 +33,25 @@ int push_file(char *filename);
 "/"	{ return TK_Op_div;}
 "("	{ return TK_left_par;}
 ")"	{ return TK_rigth_par;}
-[0-9]+	{ yylval.int_t = atoi(yytext); return TK_NUMERO;}
-\$[0-7] { yylval.int_t = yytext[1]-'0'; return TK_Val;}
+"\n"	{ return TK_EOL;}
 "="  	{ return TK_Asignacion;}
 "if"    { return TK_IF;}
 "else"  { return TK_Else;}
 "print" { return TK_Print;}
+"while"  { return TK_While;}
+[0-9]+	{ yylval.int_t = atoi(yytext); return TK_NUMERO;}
+\$[0-7] { yylval.int_t = yytext[1]-'0'; return TK_Val;}
 [a-zA-Z_][a-zA-Z0-9_]* {  yylval.char_t = strdup(yytext); return TK_VarNombre; }
-"\n"  	{ return TK_EOL;}
 "=="    { return TK_Igual;}
 "!="    { return TK_Distinto;}
 "<"     { return TK_Menor;}
 ">"     { return TK_Mayor;}
 "<="    { return TK_MenorIgual;}
 ">="    { return TK_MayorIgual;}
-
 "{"     { return TK_left_llave;}
 "}"     { return TK_rigth_llave;}
+
+
 
 <INITIAL><<EOF>> { if(pop_file() != 0 ) yyterminate(); }
 

@@ -113,6 +113,19 @@ class If_Statement : public Statement{
 
 		void exec();
 };
+class While_Statement : public Statement{
+	public: 
+		Expr *expr;
+		Statement *whileStatement;
+		
+		While_Statement(Expr *expr,Statement *whileStatement){
+			this->expr = expr;
+			this->whileStatement = whileStatement;
+			
+		}
+
+		void exec();
+};
 class BlockStatement : public Statement
 {
  public :

@@ -14,7 +14,7 @@ $(EXPR_LEXER_SRC) : exemploClase.l
 	flex -o $@ $^
 
 $(EXPR_PARSE_SRC) : expr.y
-	bison --defines=tokens.h -o $@ $< 
+	bison --defines=tokens.h -rall -o  $@ $< 
 
 %.o: %.cpp 
 	g++ -c -o $@ $<

@@ -1,14 +1,21 @@
-test = 10
+test = 0
 $0 = 12
 $7 = 20 
-$1 = 30
-#include "exemplo2.txt"
+$1 = 2
+#include <exemplo2.txt>
 
-if($7 <= 10)
- $1 = ($0 + $7) * 5
-else
-  print $7
+if($7 <=30)
+	if($7 <= 10)
+	 print test
+	else
+        print $1
 
-print test
-print $1
+while(test < 10)
+{  
+  test = (test + 1)
+  print test
+   
+  
+}
+
 print ($1 + 10) * test

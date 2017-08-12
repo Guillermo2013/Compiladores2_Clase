@@ -54,8 +54,22 @@ void AssignStatement:: exec(){
   if(index != -1)
    vars[index] = v1;
    else if(index == -1){
+	int existe = 0;
+      map<char *, int>::iterator p = variablesNombres.begin();
+	  while (p != variablesNombres.end() )
+	  {
+	    if(strcmp(p->first,nombre) == 0){
+	       p->second = v1;
+	  	existe = 1;  
+	   }
+	    p ++;
+	    
+	  }
+	if(existe == 0) 
     variablesNombres.insert(elemento(nombre,v1));
-    
+   
+	
+       
  }
   
 }
@@ -72,6 +86,14 @@ void If_Statement::exec(){
  else
    elseStatement->exec();
 }
+	void While_Statement::exec(){
+
+
+ while( expr->eval()  == 1)
+   whileStatement->exec();
+ 
+}
+
 void BlockStatement::exec(){
   if(!listStatement.empty())
   {
